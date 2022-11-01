@@ -1,12 +1,17 @@
 import express from 'express';
+import dbConnection from './database/connection.js';
 
 class Server {
   constructor() {
     this.app = express();
     this.port = process.env.SERVER_PORT || 5000;
+
+    this.getConnection();
   }
 
-  getConnection() {}
+  getConnection() {
+    dbConnection();
+  }
 
   middleware() {}
 
