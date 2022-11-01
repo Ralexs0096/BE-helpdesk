@@ -1,6 +1,8 @@
+import users from './users.js'
+
 const routes = [
   {
-    route: 'users',
+    route: users,
     path: '/users',
   },
 ];

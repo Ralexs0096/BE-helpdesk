@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dbConnection from './database/connection.js';
-import userRoute from './routes/users.js';
+import routes from './routes/index.js';
 
 class Server {
   constructor() {
@@ -24,7 +24,9 @@ class Server {
   }
 
   router() {
-    this.app.use('/users', userRoute);
+    routes.forEach(async ({ path, route }) => {
+      this.app.use(`${path}`, route);
+    });
   }
 
   listen() {
