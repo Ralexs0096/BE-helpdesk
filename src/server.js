@@ -1,5 +1,7 @@
 import express from 'express';
+import cors from 'cors';
 import dbConnection from './database/connection.js';
+import userRoute from './routes/users.js';
 
 class Server {
   constructor() {
@@ -7,15 +9,23 @@ class Server {
     this.port = process.env.SERVER_PORT || 5000;
 
     this.getConnection();
+    this.middleware();
+    this.router();
   }
 
   getConnection() {
     dbConnection();
   }
 
-  middleware() {}
+  middleware() {
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(cors());
+  }
 
-  routes() {}
+  router() {
+    this.app.use('/users', userRoute);
+  }
 
   listen() {
     this.app.listen(this.port, () =>
